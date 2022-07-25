@@ -1,39 +1,62 @@
 package Driver;
 
-import Beans.Triangle;
+import javax.swing.JFrame;
+
+import Beans.Poly;
 import Beans.Vertex;
-import Render.Display;
-import Utilities.MidService;
+import Render.Render;
+import Utility.MidService;
 
 public class Driver {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException
+	{
+		JFrame frame = new JFrame("3D Render");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(MidService.display[0], MidService.display[1]);
+		frame.setLocationRelativeTo(null);
 		
-		Display display = new Display();
+		Render render = new Render();
+		frame.add(render);
+		frame.setVisible(true);
+		frame.validate();
 		
-		MidService.mesh.add(new Triangle(new Vertex(-100, 100, 100),
-										new Vertex(-100, -100, 100),
-										new Vertex(100, -100, 100)));
-		MidService.mesh.add(new Triangle(new Vertex(-100, 100, 100),
-										new Vertex(100, -100, 100),
-										new Vertex(100, 100, 100)));
+		Poly poly = new Poly(new Vertex(-1, 1, -1),
+							new Vertex(-1, -1, -1),
+							new Vertex(1, -1, -1),
+							new Vertex(1, 1, -1));
+		Poly poly2 = new Poly(new Vertex(-1, 1, 1),
+							new Vertex(-1, -1, 1),
+							new Vertex(1, -1, 1),
+							new Vertex(1, 1, 1));
 		
-//		MidService.mesh.add(new Triangle(new Vertex(-100, 100, -100),
-//										new Vertex(-100, -100, -100),
-//										new Vertex(100, -100, -100)));
-//		MidService.mesh.add(new Triangle(new Vertex(-100, 100, -100),
-//										new Vertex(100, -100, -100),
-//										new Vertex(100, 100, -100)));
+		Poly poly3 = new Poly(new Vertex(-1, 1, -1),
+							new Vertex(-1, -1, -1),
+							new Vertex(-1, -1, 1),
+							new Vertex(-1, 1, 1));
+		Poly poly4 = new Poly(new Vertex(1, 1, 1),
+							new Vertex(1, -1, 1),
+							new Vertex(1, -1, -1),
+							new Vertex(1, 1, -1));
+		
+		Poly poly5 = new Poly(new Vertex(-1, 1, -1),
+							new Vertex(-1, -1, -1),
+							new Vertex(1, 1, -1),
+							new Vertex(1, -1, -1));
+		Poly poly6 = new Poly(new Vertex(-1, 1, 1),
+							new Vertex(-1, -1, 1),
+							new Vertex(1, 1, 1),
+							new Vertex(1, -1, 1));
+		
+		MidService.mesh.add(poly);
+		MidService.mesh.add(poly2);
+		MidService.mesh.add(poly3);
+		MidService.mesh.add(poly4);
 		while(true)
 		{
-			display.update();
+			render.update();
 			
-			try {
-				Thread.sleep(1000/30);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Thread.sleep(1000/30);
 		}
 	}
 }
